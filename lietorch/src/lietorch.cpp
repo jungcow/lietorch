@@ -17,10 +17,10 @@
 // Unary operations
 torch::Tensor expm(int group_index, torch::Tensor a) {
     CHECK_CONTIGUOUS(a);
-    if (a.device().type() == torch::DeviceType::CPU) {
+    if (a.device().is_cpu()) {
         return exp_forward_cpu(group_index, a);
 
-    } else if (a.device().type() == torch::DeviceType::CUDA) {
+    } else if (a.device().is_cuda()) {
         return exp_forward_gpu(group_index, a);
     }
 
@@ -30,10 +30,10 @@ torch::Tensor expm(int group_index, torch::Tensor a) {
 std::vector<torch::Tensor> expm_backward(int group_index, torch::Tensor grad, torch::Tensor a) {
     CHECK_CONTIGUOUS(a);
     CHECK_CONTIGUOUS(grad);
-    if (a.device().type() == torch::DeviceType::CPU) {
+    if (a.device().is_cpu()) {
         return exp_backward_cpu(group_index, grad, a);
 
-    } else if (a.device().type() == torch::DeviceType::CUDA) {
+    } else if (a.device().is_cuda()) {
         return exp_backward_gpu(group_index, grad, a);
     }
 
@@ -42,10 +42,10 @@ std::vector<torch::Tensor> expm_backward(int group_index, torch::Tensor grad, to
 
 torch::Tensor logm(int group_index, torch::Tensor X) {
     CHECK_CONTIGUOUS(X);
-    if (X.device().type() == torch::DeviceType::CPU) {
+    if (X.device().is_cpu()) {
         return log_forward_cpu(group_index, X);
 
-    } else if (X.device().type() == torch::DeviceType::CUDA) {
+    } else if (X.device().is_cuda()) {
         return log_forward_gpu(group_index, X);
     }
 
@@ -56,10 +56,10 @@ std::vector<torch::Tensor> logm_backward(int group_index, torch::Tensor grad, to
     CHECK_CONTIGUOUS(X);
     CHECK_CONTIGUOUS(grad);
 
-    if (X.device().type() == torch::DeviceType::CPU) {
+    if (X.device().is_cpu()) {
         return log_backward_cpu(group_index, grad, X);
 
-    } else if (X.device().type() == torch::DeviceType::CUDA) {
+    } else if (X.device().is_cuda()) {
         return log_backward_gpu(group_index, grad, X);
     }
 
@@ -69,9 +69,9 @@ std::vector<torch::Tensor> logm_backward(int group_index, torch::Tensor grad, to
 torch::Tensor inv(int group_index, torch::Tensor X) {
     CHECK_CONTIGUOUS(X);
 
-    if (X.device().type() == torch::DeviceType::CPU) {
+    if (X.device().is_cpu()) {
         return inv_forward_cpu(group_index, X);
-    } else if (X.device().type() == torch::DeviceType::CUDA) {
+    } else if (X.device().is_cuda()) {
         return inv_forward_gpu(group_index, X);
     }
 
@@ -82,10 +82,10 @@ std::vector<torch::Tensor> inv_backward(int group_index, torch::Tensor grad, tor
     CHECK_CONTIGUOUS(X);
     CHECK_CONTIGUOUS(grad);
 
-    if (X.device().type() == torch::DeviceType::CPU) {
+    if (X.device().is_cpu()) {
         return inv_backward_cpu(group_index, grad, X);
 
-    } else if (X.device().type() == torch::DeviceType::CUDA) {
+    } else if (X.device().is_cuda()) {
         return inv_backward_gpu(group_index, grad, X);
     }
 
@@ -98,10 +98,10 @@ torch::Tensor mul(int group_index, torch::Tensor X, torch::Tensor Y) {
     CHECK_CONTIGUOUS(X);
     CHECK_CONTIGUOUS(Y);
 
-    if (X.device().type() == torch::DeviceType::CPU) {
+    if (X.device().is_cpu()) {
         return mul_forward_cpu(group_index, X, Y);
 
-    } else if (X.device().type() == torch::DeviceType::CUDA) {
+    } else if (X.device().is_cuda()) {
         return mul_forward_gpu(group_index, X, Y);
     }
 
@@ -113,10 +113,10 @@ std::vector<torch::Tensor> mul_backward(int group_index, torch::Tensor grad, tor
     CHECK_CONTIGUOUS(Y);
     CHECK_CONTIGUOUS(grad);
 
-    if (X.device().type() == torch::DeviceType::CPU) {
+    if (X.device().is_cpu()) {
         return mul_backward_cpu(group_index, grad, X, Y);
 
-    } else if (X.device().type() == torch::DeviceType::CUDA) {
+    } else if (X.device().is_cuda()) {
         return mul_backward_gpu(group_index, grad, X, Y);
     }
 
@@ -127,10 +127,10 @@ torch::Tensor adj(int group_index, torch::Tensor X, torch::Tensor a) {
     CHECK_CONTIGUOUS(X);
     CHECK_CONTIGUOUS(a);
 
-    if (X.device().type() == torch::DeviceType::CPU) {
+    if (X.device().is_cpu()) {
         return adj_forward_cpu(group_index, X, a);
 
-    } else if (X.device().type() == torch::DeviceType::CUDA) {
+    } else if (X.device().is_cuda()) {
         return adj_forward_gpu(group_index, X, a);
     }
 
@@ -142,10 +142,10 @@ std::vector<torch::Tensor> adj_backward(int group_index, torch::Tensor grad, tor
     CHECK_CONTIGUOUS(a);
     CHECK_CONTIGUOUS(grad);
 
-    if (X.device().type() == torch::DeviceType::CPU) {
+    if (X.device().is_cpu()) {
         return adj_backward_cpu(group_index, grad, X, a);
 
-    } else if (X.device().type() == torch::DeviceType::CUDA) {
+    } else if (X.device().is_cuda()) {
         return adj_backward_gpu(group_index, grad, X, a);
     }
 
@@ -156,10 +156,10 @@ torch::Tensor adjT(int group_index, torch::Tensor X, torch::Tensor a) {
     CHECK_CONTIGUOUS(X);
     CHECK_CONTIGUOUS(a);
     
-    if (X.device().type() == torch::DeviceType::CPU) {
+    if (X.device().is_cpu()) {
         return adjT_forward_cpu(group_index, X, a);
 
-    } else if (X.device().type() == torch::DeviceType::CUDA) {
+    } else if (X.device().is_cuda()) {
         return adjT_forward_gpu(group_index, X, a);
     }
 
@@ -171,10 +171,10 @@ std::vector<torch::Tensor> adjT_backward(int group_index, torch::Tensor grad, to
     CHECK_CONTIGUOUS(a);
     CHECK_CONTIGUOUS(grad);
     
-    if (X.device().type() == torch::DeviceType::CPU) {
+    if (X.device().is_cpu()) {
         return adjT_backward_cpu(group_index, grad, X, a);
 
-    } else if (X.device().type() == torch::DeviceType::CUDA) {
+    } else if (X.device().is_cuda()) {
         return adjT_backward_gpu(group_index, grad, X, a);
     }
 
@@ -186,10 +186,10 @@ torch::Tensor act(int group_index, torch::Tensor X, torch::Tensor p) {
     CHECK_CONTIGUOUS(X);
     CHECK_CONTIGUOUS(p);
 
-    if (X.device().type() == torch::DeviceType::CPU) {
+    if (X.device().is_cpu()) {
         return act_forward_cpu(group_index, X, p);
 
-    } else if (X.device().type() == torch::DeviceType::CUDA) {
+    } else if (X.device().is_cuda()) {
         return act_forward_gpu(group_index, X, p);
     }
 
@@ -201,10 +201,10 @@ std::vector<torch::Tensor> act_backward(int group_index, torch::Tensor grad, tor
     CHECK_CONTIGUOUS(p);
     CHECK_CONTIGUOUS(grad);
 
-    if (X.device().type() == torch::DeviceType::CPU) {
+    if (X.device().is_cpu()) {
         return act_backward_cpu(group_index, grad, X, p);
 
-    } else if (X.device().type() == torch::DeviceType::CUDA) {
+    } else if (X.device().is_cuda()) {
         return act_backward_gpu(group_index, grad, X, p);
     }
 
@@ -215,10 +215,10 @@ torch::Tensor act4(int group_index, torch::Tensor X, torch::Tensor p) {
     CHECK_CONTIGUOUS(X);
     CHECK_CONTIGUOUS(p);
     
-    if (X.device().type() == torch::DeviceType::CPU) {
+    if (X.device().is_cpu()) {
         return act4_forward_cpu(group_index, X, p);
 
-    } else if (X.device().type() == torch::DeviceType::CUDA) {
+    } else if (X.device().is_cuda()) {
         return act4_forward_gpu(group_index, X, p);
     }
 
@@ -230,10 +230,10 @@ std::vector<torch::Tensor> act4_backward(int group_index, torch::Tensor grad, to
     CHECK_CONTIGUOUS(p);
     CHECK_CONTIGUOUS(grad);
 
-    if (X.device().type() == torch::DeviceType::CPU) {
+    if (X.device().is_cpu()) {
         return act4_backward_cpu(group_index, grad, X, p);
 
-    } else if (X.device().type() == torch::DeviceType::CUDA) {
+    } else if (X.device().is_cuda()) {
         return act4_backward_gpu(group_index, grad, X, p);
     }
 
@@ -244,10 +244,10 @@ std::vector<torch::Tensor> act4_backward(int group_index, torch::Tensor grad, to
 torch::Tensor projector(int group_index, torch::Tensor X) {
     CHECK_CONTIGUOUS(X);
     
-    if (X.device().type() == torch::DeviceType::CPU) {
+    if (X.device().is_cpu()) {
         return orthogonal_projector_cpu(group_index, X);
 
-    } else if (X.device().type() == torch::DeviceType::CUDA) {
+    } else if (X.device().is_cuda()) {
         return orthogonal_projector_gpu(group_index, X);
     }
 
@@ -258,10 +258,10 @@ torch::Tensor projector(int group_index, torch::Tensor X) {
 torch::Tensor as_matrix(int group_index, torch::Tensor X) {
     CHECK_CONTIGUOUS(X);
     
-    if (X.device().type() == torch::DeviceType::CPU) {
+    if (X.device().is_cpu()) {
         return as_matrix_forward_cpu(group_index, X);
 
-    } else if (X.device().type() == torch::DeviceType::CUDA) {
+    } else if (X.device().is_cuda()) {
         return as_matrix_forward_gpu(group_index, X);
     }
 
@@ -272,10 +272,10 @@ torch::Tensor Jinv(int group_index, torch::Tensor X, torch::Tensor a) {
     CHECK_CONTIGUOUS(X);
     CHECK_CONTIGUOUS(a);
 
-    if (X.device().type() == torch::DeviceType::CPU) {
+    if (X.device().is_cpu()) {
         return jleft_forward_cpu(group_index, X, a);
 
-    } else if (X.device().type() == torch::DeviceType::CUDA) {
+    } else if (X.device().is_cuda()) {
         return jleft_forward_gpu(group_index, X, a);
     }
 
